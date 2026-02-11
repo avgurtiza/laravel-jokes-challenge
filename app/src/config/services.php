@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'joke_api' => [
+        'url' => env('JOKE_API_URL', 'https://official-joke-api.appspot.com/jokes/programming/ten'),
+    ],
+
 ];
