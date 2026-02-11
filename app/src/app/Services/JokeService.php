@@ -6,7 +6,6 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use RuntimeException;
 
 class JokeService
 {
@@ -40,7 +39,7 @@ class JokeService
             shuffle($jokes);
 
             return array_slice($jokes, 0, 3);
-        } catch (RuntimeException $e) {
+        } catch (\Throwable $e) {
             Log::error('Failed to fetch jokes from API', [
                 'url' => $url,
                 'error' => $e->getMessage(),

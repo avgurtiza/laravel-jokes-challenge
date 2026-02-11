@@ -83,8 +83,7 @@ class WebJokeControllerTest extends TestCase
 
         $response->assertStatus(200)
             ->assertSee('Refresh Jokes')
-            ->assertSee('form')
-            ->assertSee(route('jokes.index'));
+            ->assertSee('refreshJokes()');
     }
 
     public function test_handles_error_when_api_fails(): void

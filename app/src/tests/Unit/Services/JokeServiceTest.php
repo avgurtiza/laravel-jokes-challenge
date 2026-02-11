@@ -69,9 +69,9 @@ class JokeServiceTest extends TestCase
         ]);
 
         $service = new JokeService;
+        $jokes = $service->fetchJokes();
 
-        $this->expectException(\Illuminate\Http\Client\RequestException::class);
-        $service->fetchJokes();
+        $this->assertEmpty($jokes);
     }
 
     public function test_returns_error_when_api_fails_5xx(): void
@@ -81,9 +81,9 @@ class JokeServiceTest extends TestCase
         ]);
 
         $service = new JokeService;
+        $jokes = $service->fetchJokes();
 
-        $this->expectException(\Illuminate\Http\Client\RequestException::class);
-        $service->fetchJokes();
+        $this->assertEmpty($jokes);
     }
 
     public function test_handles_network_timeout(): void
@@ -93,9 +93,9 @@ class JokeServiceTest extends TestCase
         ]);
 
         $service = new JokeService;
+        $jokes = $service->fetchJokes();
 
-        $this->expectException(\Illuminate\Http\Client\ConnectionException::class);
-        $service->fetchJokes();
+        $this->assertEmpty($jokes);
     }
 
     public function test_handles_invalid_api_response(): void

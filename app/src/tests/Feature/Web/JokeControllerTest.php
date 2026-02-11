@@ -90,4 +90,22 @@ class JokeControllerTest extends TestCase
             ->assertViewHas('jokes', $mockJokes)
             ->assertViewHas('error', null);
     }
+
+    public function test_web_page_has_ajax_refresh_elements(): void
+    {
+        $jokeServiceMock = Mockery::mock(JokeService::class);
+        $jokeServiceMock->shouldReceive('fetchJokes')
+            ->once()
+            ->andReturn($this->mockJokes());
+
+        $this->app->instance(JokeService::class, $jokeServiceMock);
+
+        $response = $this->get('/jokes');
+
+        $response->assertStatus(200)
+            ->assertSee('id="jokes-container"', false)
+            ->assertSee('id="loading-indicator"', false)
+            ->assertSee('id="refresh-btn"', false)
+            ->assertSee('refreshJokes()', false);
+    }
 }
