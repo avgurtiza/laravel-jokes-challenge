@@ -25,7 +25,7 @@ return [
         'show_icon' => true,
         'color' => null,
         'size' => 'tiny',
-        'show_ring' => false
+        'show_ring' => false,
     ],
 
     /*
@@ -80,7 +80,7 @@ return [
         // define default attributes for all circular buttons
         'circle' => [
             'size' => 'regular',
-        ]
+        ],
     ],
 
     /*
@@ -221,7 +221,7 @@ return [
             'hover' => true,
             'padded' => true,
             'divided' => false,
-        ]
+        ],
     ],
 
     /*
@@ -485,7 +485,7 @@ return [
         'heading' => [
             'icon_type' => 'outline',
             'icon_dir' => '', // starts from your-project/public
-        ]
+        ],
     ],
 
     /*

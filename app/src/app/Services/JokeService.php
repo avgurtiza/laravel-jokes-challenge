@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Data\JokeData;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -12,7 +13,7 @@ class JokeService
     /**
      * Fetch 3 random programming jokes from the external API.
      *
-     * @return array<int, array<string, mixed>>
+     * @return array<int, JokeData>
      */
     public function fetchJokes(): array
     {
@@ -35,10 +36,14 @@ class JokeService
                 return [];
             }
 
-            // Shuffle and return first 3 jokes
             shuffle($jokes);
 
-            return array_slice($jokes, 0, 3);
+            $selectedJokes = array_slice($jokes, 0, 3);
+
+            return array_map(
+                fn (array $joke): JokeData => JokeData::fromArray($joke),
+                $selectedJokes
+            );
         } catch (\Throwable $e) {
             Log::error('Failed to fetch jokes from API', [
                 'url' => $url,

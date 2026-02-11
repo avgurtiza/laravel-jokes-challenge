@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Api;
 
+use App\Data\JokeData;
 use App\Models\User;
+use App\Services\JokeService;
 use Laravel\Sanctum\Sanctum;
 use Mockery;
-use App\Services\JokeService;
 use Tests\TestCase;
 
 class ApiAuthenticationTest extends TestCase
@@ -21,9 +22,9 @@ class ApiAuthenticationTest extends TestCase
     private function mockJokes(): array
     {
         return [
-            ['id' => 1, 'type' => 'programming', 'joke' => 'Test joke 1'],
-            ['id' => 2, 'type' => 'programming', 'joke' => 'Test joke 2'],
-            ['id' => 3, 'type' => 'programming', 'joke' => 'Test joke 3'],
+            JokeData::fromArray(['id' => 1, 'type' => 'programming', 'setup' => 'Test joke 1', 'punchline' => 'Punchline 1']),
+            JokeData::fromArray(['id' => 2, 'type' => 'programming', 'setup' => 'Test joke 2', 'punchline' => 'Punchline 2']),
+            JokeData::fromArray(['id' => 3, 'type' => 'programming', 'setup' => 'Test joke 3', 'punchline' => 'Punchline 3']),
         ];
     }
 
@@ -55,7 +56,7 @@ class ApiAuthenticationTest extends TestCase
         $this->app->instance(JokeService::class, $jokeServiceMock);
 
         $response = $this->getJson('/api/jokes', [
-            'Authorization' => 'Bearer ' . $token,
+            'Authorization' => 'Bearer '.$token,
         ]);
 
         $response->assertStatus(200)
@@ -74,13 +75,13 @@ class ApiAuthenticationTest extends TestCase
         $this->app->instance(JokeService::class, $jokeServiceMock);
 
         $response = $this->getJson('/api/jokes', [
-            'Authorization' => 'Bearer ' . $token,
+            'Authorization' => 'Bearer '.$token,
         ]);
 
         $response->assertStatus(200)
             ->assertJsonStructure([
                 'data' => [
-                    '*' => ['id', 'type', 'joke'],
+                    '*' => ['id', 'type', 'setup', 'punchline'],
                 ],
             ]);
     }
@@ -97,7 +98,7 @@ class ApiAuthenticationTest extends TestCase
         $this->app->instance(JokeService::class, $jokeServiceMock);
 
         $response = $this->getJson('/api/jokes', [
-            'Authorization' => 'Bearer ' . $token,
+            'Authorization' => 'Bearer '.$token,
         ]);
 
         $response->assertStatus(500)
@@ -132,7 +133,7 @@ class ApiAuthenticationTest extends TestCase
         $token->accessToken->delete();
 
         $response = $this->getJson('/api/jokes', [
-            'Authorization' => 'Bearer ' . $plainTextToken,
+            'Authorization' => 'Bearer '.$plainTextToken,
         ]);
 
         $response->assertStatus(401);

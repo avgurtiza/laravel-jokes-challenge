@@ -167,12 +167,6 @@ Tokens are stored in the `personal_access_tokens` table and associated with your
 ./vendor/bin/pint
 ```
 
-### Static Analysis (Optional)
-
-```bash
-./vendor/bin/phpstan analyse
-```
-
 ## External API
 
 The application fetches programming jokes from the official Joke API.

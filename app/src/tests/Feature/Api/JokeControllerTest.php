@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Api;
 
+use App\Data\JokeData;
 use App\Models\User;
 use App\Services\JokeService;
 use Laravel\Sanctum\Sanctum;
@@ -21,9 +22,9 @@ class JokeControllerTest extends TestCase
     private function mockJokes(): array
     {
         return [
-            ['id' => 1, 'type' => 'programming', 'joke' => 'Test joke 1'],
-            ['id' => 2, 'type' => 'programming', 'joke' => 'Test joke 2'],
-            ['id' => 3, 'type' => 'programming', 'joke' => 'Test joke 3'],
+            JokeData::fromArray(['id' => 1, 'type' => 'programming', 'setup' => 'Test joke 1', 'punchline' => 'Punchline 1']),
+            JokeData::fromArray(['id' => 2, 'type' => 'programming', 'setup' => 'Test joke 2', 'punchline' => 'Punchline 2']),
+            JokeData::fromArray(['id' => 3, 'type' => 'programming', 'setup' => 'Test joke 3', 'punchline' => 'Punchline 3']),
         ];
     }
 
@@ -62,7 +63,7 @@ class JokeControllerTest extends TestCase
         $response->assertStatus(200)
             ->assertJsonStructure([
                 'data' => [
-                    '*' => ['id', 'type', 'joke'],
+                    '*' => ['id', 'type', 'setup', 'punchline'],
                 ],
             ]);
     }
