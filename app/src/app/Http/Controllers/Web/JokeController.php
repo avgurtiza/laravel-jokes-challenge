@@ -11,9 +11,6 @@ class JokeController extends Controller
 {
     public function index(): View
     {
-        return view('jokes.index', [
-            'jokes' => [],
-            'error' => null,
-        ]);
+        return view('jokes.index');
     }
 }
