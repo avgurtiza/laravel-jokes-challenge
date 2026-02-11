@@ -1,27 +1,26 @@
-# Laravel Code Challenge
+# Laravel Jokes API
 
-This challenge is to assess a small range of your Laravel knowledge. We would like you to spend no more than 2 hours on this task. It's not a problem if you don't finish everything in the task. The goal is to get a clear view of how you think and work.
+A Laravel 12 application with session-based web authentication and Sanctum API token authentication.
 
-## The Challenge
-The challenge will contain a few core features most applications have. That includes connecting to an API, basic MVC, exposing an API, and finally tests.
+## Features
 
-The API we want you to connect to is https://official-joke-api.appspot.com/jokes/programming/ten/
+- **Web Interface**: Browse programming jokes with user registration/login
+- **API**: Bearer token authentication via Laravel Sanctum
+- **AJAX**: Dynamic joke loading with token management
 
-The application should have the following features
+## Tech Stack
 
-### Must haves
-- A web page that shows 3 random jokes
-- A button to refresh the jokes on the page
-- An API route should be available to fetch the 3 jokes for the page
-- Create tests for the application
-- Provide a README on anything we need to set up and test the application
+- Laravel 12, SQLite, Laravel Sanctum
+- Blade templates with BladeWind UI components
+- PHP 8.2+
 
-### Nice to haves
-- Authentication for the page should be done with a password 
-- The API route is secured with a token
+## Quick Start
 
-### Notes
-**The core aim of this challenge is to assess your Laravel knowledge and problem-solving approach.**  
-Frontend styling is optional rather than required, but feel free to include any additional UI, styling, or JavaScript if you think it adds value — we’ll take it into account.¹
+```bash
+cd app/src
+composer install
+php artisan migrate --seed
+php artisan serve
+```
 
-¹ <sup><sub>Please don’t feel obligated to spend significant time perfecting layouts, animations, or Tailwind configurations unless that’s genuinely how you’d like to use your time.</sub></sup>
+See [QUICKSTART.md](QUICKSTART.md) for detailed setup instructions.

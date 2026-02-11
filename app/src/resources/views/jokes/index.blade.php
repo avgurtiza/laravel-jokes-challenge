@@ -1,18 +1,25 @@
 <x-layout>
     <x-slot:title>Programming Jokes</x-slot>
 
+    <div class="mb-6 flex justify-between items-center">
+        <span class="text-gray-600">Welcome, {{ auth()->user()->name }}</span>
+        <form method="POST" action="{{ route('logout') }}" class="inline">
+            @csrf
+            <button type="submit" class="text-red-600 hover:text-red-500">Logout</button>
+        </form>
+    </div>
+
     <div id="error-container"></div>
 
     <div id="jokes-container" class="space-y-6 mb-6"></div>
 
-    <x-bladewind::button
+    <button
         id="refresh-btn"
-        color="blue"
-        class="w-full"
         onclick="refreshJokes()"
+        class="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
     >
         Refresh Jokes
-    </x-bladewind::button>
+    </button>
 
     <script>
         function refreshJokes() {
@@ -36,7 +43,7 @@
             fetch('/api/jokes', {
                 headers: {
                     'Accept': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    'Authorization': `Bearer {{ $api_token ?? '' }}`,
                 }
             })
             .then(response => {
