@@ -31,6 +31,7 @@ npm install          # or: bun install
 npm run build        # or: bun run build
 cp .env.example .env
 php artisan key:generate
+touch database/database.sqlite  # Required for non-interactive environments
 php artisan migrate --seed
 php artisan serve
 ```

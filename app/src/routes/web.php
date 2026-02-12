@@ -4,9 +4,7 @@ use App\Http\Controllers\Web\AuthController;
 use App\Http\Controllers\Web\JokeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::redirect('/', '/jokes')->name('home');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
