@@ -52,7 +52,8 @@ class JokeDataTest extends TestCase
             'punchline' => 'test',
         ]);
 
-        $this->assertTrue(true);
+        $this->expectException(\Error::class);
+        $jokeData->id = 2; // Should throw Error: Cannot modify readonly property
     }
 
     public function test_json_serializes_two_part_joke_correctly(): void
