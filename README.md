@@ -78,7 +78,6 @@ All API endpoints require authentication via Laravel Sanctum Bearer token.
 | Method | URI | Name | Description |
 |--------|-----|------|-------------|
 | GET | /api/jokes | api.jokes.index | Returns 3 programming jokes as JSON |
-| GET | /api/token | | Returns the authenticated user's token ID |
 
 ### Example Request
 
@@ -136,11 +135,21 @@ The API uses Laravel Sanctum for token-based authentication.
 
 #### Obtaining a Token
 
-Tokens are automatically created and stored in your session upon registration or login. To retrieve your token:
+Tokens are automatically created during web registration or login. The plain text token is stored in your session and used internally by the web interface for AJAX requests.
+
+**For external API access**, you'll need to retrieve the token from your session or database:
+
+1. Login via the web interface at `/login`
+2. Check the `api_token` session value, or query the `personal_access_tokens` table
+3. Use the `plain_text_token` column value (format: `ID|random_string`)
+
+Alternatively, you can create a token programmatically via `tinker`:
 
 ```bash
-curl -X GET http://localhost:8000/api/token \
-  -H "Authorization: Bearer <your-token>"
+php artisan tinker
+>>> $user = App\Models\User::first();
+>>> $token = $user->createToken('API Token');
+>>> echo $token->plainTextToken;
 ```
 
 #### Using the Token
