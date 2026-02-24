@@ -62,7 +62,7 @@ class JokeServiceTest extends TestCase
         $this->assertGreaterThan(1, count($uniqueResults), 'Jokes should be randomized across calls');
     }
 
-    public function test_returns_error_when_api_fails_4xx(): void
+    public function test_returns_empty_when_api_fails_4xx(): void
     {
         Http::fake([
             'official-joke-api.appspot.com/*' => Http::response(['error' => 'Not found'], 404),
@@ -74,7 +74,7 @@ class JokeServiceTest extends TestCase
         $this->assertEmpty($jokes);
     }
 
-    public function test_returns_error_when_api_fails_5xx(): void
+    public function test_returns_empty_when_api_fails_5xx(): void
     {
         Http::fake([
             'official-joke-api.appspot.com/*' => Http::response(['error' => 'Internal server error'], 500),
